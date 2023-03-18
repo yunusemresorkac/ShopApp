@@ -28,9 +28,11 @@ class ProductAdapter(private val productList : ArrayList<Product>, val context: 
 
 
         holder.binding.addToCart.setOnClickListener {
-            onClick.onClick(productList[position])
+            onClick.addToCart(productList[position])
         }
-
+        holder.binding.seeDetails.setOnClickListener {
+            onClick.seeDetails(productList[position])
+        }
     }
 
     override fun getItemCount(): Int {
@@ -43,7 +45,10 @@ class ProductAdapter(private val productList : ArrayList<Product>, val context: 
 
 
     interface OnClick{
-        fun onClick(product: Product)
+        fun addToCart(product: Product)
+
+        fun seeDetails(product: Product)
+
     }
 
 }
