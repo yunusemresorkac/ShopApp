@@ -3,6 +3,7 @@ package com.yeslabapps.eshop.di
 import com.yeslabapps.eshop.repo.ProductDownload
 import com.yeslabapps.eshop.repo.ProductDownloadImpl
 import com.yeslabapps.eshop.services.ProductApi
+import com.yeslabapps.eshop.viewmodel.CartViewModel
 import com.yeslabapps.eshop.viewmodel.ProductViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
@@ -25,7 +26,9 @@ val appModule = module {
     viewModel{
         ProductViewModel(get())
     }
-
+    viewModel{
+        CartViewModel(get())
+    }
 
 }
 

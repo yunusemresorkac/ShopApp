@@ -88,3 +88,4 @@ dependencies {
     kapt "androidx.room:room-compiler:$room_version"
 
 }
+apply plugin: 'com.google.gms.google-services'

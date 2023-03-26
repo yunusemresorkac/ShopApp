@@ -32,7 +32,7 @@ class ProductViewModel(
             withContext(Dispatchers.Main) {
                 resource.data?.let {
                     productLoading.value = Resource.loading(false)
-                    productError.value = Resource.error("",data = false)
+                    productError.value = Resource.error("",false)
                     productList.value = resource
                 }
             }

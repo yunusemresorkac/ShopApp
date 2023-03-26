@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "849176900390",
+    "project_id": "shopapp-a5b02",
+    "storage_bucket": "shopapp-a5b02.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:849176900390:android:6f0f893a52e8dfce1f87e7",
+        "android_client_info": {
+          "package_name": "com.yeslabapps.eshop"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "849176900390-q8bf4fffc6au15an392st1459m67bvm8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBtKJ2clkfBZaVtiJF2_c1cYZzizmsoShU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "849176900390-q8bf4fffc6au15an392st1459m67bvm8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

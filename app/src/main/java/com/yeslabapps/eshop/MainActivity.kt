@@ -1,6 +1,7 @@
 package com.yeslabapps.eshop
 
 import android.app.Dialog
+import android.app.ProgressDialog
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
@@ -33,7 +34,7 @@ class MainActivity : AppCompatActivity(),ProductAdapter.OnClick {
     private lateinit var voiceAdapter: ProductAdapter
     private val viewModel by viewModel<ProductViewModel>()
     private lateinit var appDb : CartDatabase
-
+    private lateinit var progressDialog: ProgressDialog
 
 
 
@@ -42,18 +43,24 @@ class MainActivity : AppCompatActivity(),ProductAdapter.OnClick {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+
+
+        utilInit()
+        observeLiveData()
+
+        binding.myCart.setOnClickListener {
+            startActivity(Intent(this,CartActivity::class.java))
+        }
+
+    }
+
+    private fun utilInit(){
+        progressDialog = ProgressDialog(this, R.style.CustomDialog)
         appDb = CartDatabase.getDatabase(this)
 
         val layoutManager : RecyclerView.LayoutManager = GridLayoutManager(this,2)
         binding.recyclerView.layoutManager = layoutManager
         viewModel.getDataFromAPI()
-        observeLiveData()
-
-
-
-        binding.myCart.setOnClickListener {
-            startActivity(Intent(this,CartActivity::class.java))
-        }
 
     }
 
@@ -71,9 +78,9 @@ class MainActivity : AppCompatActivity(),ProductAdapter.OnClick {
         viewModel.productError.observe(this, Observer { error->
             error?.let {
                 if(it.data == true) {
-                    //binding.cryptoErrorText.visibility = View.VISIBLE
+                    progressDialog.dismiss()
                 } else {
-                    //binding.cryptoErrorText.visibility = View.GONE
+                    progressDialog.dismiss()
                 }
             }
         })
@@ -81,10 +88,9 @@ class MainActivity : AppCompatActivity(),ProductAdapter.OnClick {
         viewModel.productLoading.observe(this, Observer { loading->
             loading?.let {
                 if (it.data == true) {
-//                    binding.progressBar.visibility = View.VISIBLE
-//                    binding.recyclerView.visibility = View.GONE
+                    progressDialog.show()
                 } else {
-                    //binding.progressBar.visibility = View.GONE
+                    progressDialog.dismiss()
                 }
             }
         })
@@ -92,9 +98,7 @@ class MainActivity : AppCompatActivity(),ProductAdapter.OnClick {
     }
 
     private fun myAddToCart(product: Product){
-        val cart = Cart(
-            product.id, product.title, product.description,product.price,product.thumbnail,1
-        )
+        val cart = Cart(product.id, product.title, product.description,product.price,product.thumbnail,1)
         GlobalScope.launch(Dispatchers.IO) {
 
             appDb.cartDao().insert(cart)
@@ -120,9 +124,15 @@ class MainActivity : AppCompatActivity(),ProductAdapter.OnClick {
         dialog.show()
         dialog.window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
         dialog.window?.setGravity(Gravity.BOTTOM)
+        dialog.window?.setBackgroundDrawableResource(R.color.white)
 
         val description: TextView = dialog.findViewById(R.id.description)
-        description.text = product.description
+        val category: TextView = dialog.findViewById(R.id.category)
+        val stock: TextView = dialog.findViewById(R.id.stock)
+
+        description.text = "Description: ${product.description} "
+        category.text = "Category: ${product.category} "
+        stock.text = "Stock: ${product.stock} "
     }
 
 }

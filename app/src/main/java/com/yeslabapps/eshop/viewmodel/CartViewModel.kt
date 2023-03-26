@@ -9,13 +9,9 @@ import com.yeslabapps.eshop.repo.CartRepo
 
 class CartViewModel (application: Application) : AndroidViewModel(application) {
 
-    // on below line we are creating a variable
-    // for our all notes list and repository
     val allNotes : LiveData<List<Cart>>
     val repository : CartRepo
 
-    // on below line we are initializing
-    // our dao, repository and all notes
     init {
         val dao = CartDatabase.getDatabase(application).cartDao()
         repository = CartRepo(dao)
